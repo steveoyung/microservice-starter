@@ -78,7 +78,7 @@ public class RateLimitFilter extends ZuulFilter {
     }
 
     @Override
-    public Object run() {
+    public Object run(){
         final RequestContext ctx = RequestContext.getCurrentContext();
         final HttpServletResponse response = ctx.getResponse();
         final HttpServletRequest request = ctx.getRequest();
@@ -91,8 +91,10 @@ public class RateLimitFilter extends ZuulFilter {
             if (rate.getRemaining() < 0) {
                 ctx.setResponseStatusCode(TOO_MANY_REQUESTS.value());
                 ctx.put("rateLimitExceeded", "true");
-                throw new ZuulRuntimeException(new ZuulException(TOO_MANY_REQUESTS.toString(),
-                        TOO_MANY_REQUESTS.value(), null));
+//                throw new ZuulRuntimeException(new ZuulException(TOO_MANY_REQUESTS.toString(),
+//                        TOO_MANY_REQUESTS.value(), null));
+                throw new RuntimeException(TOO_MANY_REQUESTS.toString()+","+TOO_MANY_REQUESTS.value());
+                //
             }
         });
         return null;
