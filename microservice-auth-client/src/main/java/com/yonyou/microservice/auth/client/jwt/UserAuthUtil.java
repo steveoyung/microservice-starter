@@ -3,12 +3,12 @@ package com.yonyou.microservice.auth.client.jwt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import com.yonyou.cloud.common.jwt.IJWTInfo;
+import com.yonyou.cloud.common.jwt.JWTHelper;
 import com.yonyou.microservice.auth.client.config.UserAuthConfig;
 import com.yonyou.microservice.auth.client.exception.JwtIllegalArgumentException;
 import com.yonyou.microservice.auth.client.exception.JwtSignatureException;
 import com.yonyou.microservice.auth.client.exception.JwtTokenExpiredException;
-import com.yonyou.microservice.gate.common.util.jwt.IJWTInfo;
-import com.yonyou.microservice.gate.common.util.jwt.JWTHelper;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;

@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.yonyou.cloud.common.jwt.IJWTInfo;
 import com.yonyou.microservice.auth.client.annotation.IgnoreClientToken;
 import com.yonyou.microservice.auth.client.config.ServiceAuthConfig;
 import com.yonyou.microservice.auth.client.jwt.ServiceAuthUtil;
 import com.yonyou.microservice.gate.common.exception.auth.ClientForbiddenException;
-import com.yonyou.microservice.gate.common.util.jwt.IJWTInfo;
 
 /**
  * Created by ace on 2017/9/12.

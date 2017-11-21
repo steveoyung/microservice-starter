@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.yonyou.cloud.common.jwt.IJWTInfo;
+import com.yonyou.cloud.common.jwt.JWTHelper;
 import com.yonyou.microservice.auth.client.config.ServiceAuthConfig;
 import com.yonyou.microservice.auth.client.exception.JwtIllegalArgumentException;
 import com.yonyou.microservice.auth.client.exception.JwtSignatureException;
@@ -15,12 +17,10 @@ import com.yonyou.microservice.auth.client.exception.JwtTokenExpiredException;
 import com.yonyou.microservice.auth.client.feign.ServiceAuthFeign;
 import com.yonyou.microservice.gate.common.msg.BaseResponse;
 import com.yonyou.microservice.gate.common.msg.ObjectRestResponse;
-import com.yonyou.microservice.gate.common.util.jwt.IJWTInfo;
-import com.yonyou.microservice.gate.common.util.jwt.JWTHelper;
-import lombok.extern.slf4j.Slf4j;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Created by ace on 2017/9/15.
