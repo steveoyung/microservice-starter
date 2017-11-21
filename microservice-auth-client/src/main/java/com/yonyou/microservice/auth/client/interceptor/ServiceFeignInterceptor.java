@@ -23,14 +23,21 @@ public class ServiceFeignInterceptor implements RequestInterceptor {
     private UserAuthConfig userAuthConfig;
     @Autowired
     private ServiceAuthUtil serviceAuthUtil;
+    
+    public ServiceFeignInterceptor(){
+    	System.out.println("--ServiceFeignInterceptor,init,threadid:"+Thread.currentThread());
+    }
 
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
+    	System.out.println("--ServiceFeignInterceptor,threadid:"+Thread.currentThread());
     	System.out.println("-------x1:"+serviceAuthConfig.getTokenHeader());
     	System.out.println("-------x2:"+serviceAuthUtil.getClientToken());
     	System.out.println("-------x3:"+userAuthConfig.getTokenHeader());
     	System.out.println("-------x4:"+BaseContextHandler.getToken());
+    	System.out.println("-------url:"+requestTemplate.url());
+    	
         requestTemplate.header(serviceAuthConfig.getTokenHeader(), serviceAuthUtil.getClientToken());
         requestTemplate.header(userAuthConfig.getTokenHeader(), BaseContextHandler.getToken());
     }
