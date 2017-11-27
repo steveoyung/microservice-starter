@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.netflix.zuul.ZuulProxyConfiguration;
+import org.springframework.cloud.netflix.zuul.ZuulProxyAutoConfiguration;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.context.annotation.ComponentScan;
@@ -34,7 +34,7 @@ import com.yonyou.cloud.zuul.db.store.ZuulRouteStore;
 @ComponentScan("com.yonyou.cloud.zuul.db")
 @Configuration
 @AutoConfigureAfter({ZuulMybatisConfiguration.class})
-public class ZuulProxyStoreConfiguration extends ZuulProxyConfiguration {
+public class ZuulProxyStoreConfiguration extends ZuulProxyAutoConfiguration {
 	private Logger logger=Logger.getLogger(ZuulProxyStoreConfiguration.class);
 
     @Autowired
