@@ -10,7 +10,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.8.RELEASE</version>
 	</parent>
-	
+
 	<properties>
 		<!-- 依赖版本 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,6 +62,21 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>Releases name</name>
+			<url>http://210.13.111.26:10160/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>snapshots name</name>
+			<url>http://210.13.111.26:10160/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 
 	<build>
 		<plugins>
