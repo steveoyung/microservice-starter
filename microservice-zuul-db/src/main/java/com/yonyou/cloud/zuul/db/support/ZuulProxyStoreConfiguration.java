@@ -26,14 +26,14 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientR
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import com.yonyou.cloud.zuul.db.config.ZuulMapperConfiguration;
+import com.yonyou.cloud.zuul.db.config.ZuulMybatisConfiguration;
 import com.yonyou.cloud.zuul.db.route.StoreProxyRouteLocator;
 import com.yonyou.cloud.zuul.db.store.ZuulRouteStore;
 
 
 @ComponentScan("com.yonyou.cloud.zuul.db")
 @Configuration
-@AutoConfigureAfter({ZuulMapperConfiguration.class})
+@AutoConfigureAfter({ZuulMybatisConfiguration.class})
 public class ZuulProxyStoreConfiguration extends ZuulProxyConfiguration {
 	private Logger logger=Logger.getLogger(ZuulProxyStoreConfiguration.class);
 
