@@ -18,17 +18,27 @@ package com.yonyou.cloud.zuul.db.store;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 
-import com.yonyou.cloud.zuul.db.dao.RouteDao;
 import com.yonyou.cloud.zuul.db.entity.RouteEntity;
+import com.yonyou.cloud.zuul.db.mapper.RouteMapper;
 
 public class MysqlZuulRouteStore implements ZuulRouteStore {
 	private Logger logger=Logger.getLogger(MysqlZuulRouteStore.class);
 	@Autowired
-    private RouteDao dao;
+	@Qualifier("zuulDataSource")
+	public DataSource dataSource;
+	
+	@Autowired
+//	@Qualifier("zuulDataSource")
+    private RouteMapper dao;
+
+	
     
     public MysqlZuulRouteStore() {
     }
@@ -36,7 +46,7 @@ public class MysqlZuulRouteStore implements ZuulRouteStore {
     public List<ZuulProperties.ZuulRoute> findAll() {
     	logger.info("--List<ZuulProperties.ZuulRoute> findAll()，从数据库加载路由");
     	List<ZuulProperties.ZuulRoute> zs=new ArrayList();
-    	List<RouteEntity> list=dao.findAll();
+    	List<RouteEntity> list=dao.selectAll();
     	for(RouteEntity e:list){
     		ZuulProperties.ZuulRoute zl=new ZuulProperties.ZuulRoute();
     		zl.setId(e.getId());

@@ -1,15 +1,9 @@
 package com.yonyou.cloud.zuul.db.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
-@Entity
-@DynamicUpdate
-@DynamicInsert
 @Table(name="gate_routes")
 public class RouteEntity {
 

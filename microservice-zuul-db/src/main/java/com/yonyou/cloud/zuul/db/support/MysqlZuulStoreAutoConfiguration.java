@@ -22,7 +22,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.yonyou.cloud.zuul.db.dao.RouteDao;
+import com.yonyou.cloud.zuul.db.mapper.RouteMapper;
 import com.yonyou.cloud.zuul.db.route.StoreProxyRouteLocator;
 import com.yonyou.cloud.zuul.db.store.MysqlZuulRouteStore;
 import com.yonyou.cloud.zuul.db.store.ZuulRouteStore;
