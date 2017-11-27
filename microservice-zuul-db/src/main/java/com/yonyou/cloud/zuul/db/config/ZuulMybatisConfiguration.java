@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
@@ -30,7 +30,7 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  * @since 1.7
  */
 @Configuration
-//@EnableTransactionManagement
+@EnableTransactionManagement
 public class ZuulMybatisConfiguration implements EnvironmentAware {
 
 
@@ -57,10 +57,12 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
     private String poolPreparedStatements;
     private String maxOpenPreparedStatements;
     //////////////////////////////////////////////////////////////////////////
+    private DruidDataSource druidDataSource;
 
-    @Bean("zuulDataSource")
-
+//    @Bean("zuulDataSource")
     public DataSource zuulDruidDataSource() {
+    	if(druidDataSource!=null)
+    		return druidDataSource;
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(url);
         druidDataSource.setUsername(userName);
@@ -86,6 +88,7 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        this.druidDataSource=druidDataSource;
         return druidDataSource;
     }
     
@@ -95,7 +98,7 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
         bean.setDataSource(zuulDruidDataSource());
         if(StringUtils.isNotBlank(typeAliasesPackage)){
             bean.setTypeAliasesPackage(typeAliasesPackage);
-    }
+       }
         //分页插件
 //        PageHelper pageHelper = new PageHelper();
 //        Properties properties = new Properties();
@@ -117,6 +120,15 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
         }
     }
 
+
+    @Bean
+    public MapperScannerConfigurer zuulMapperScannerConfigurer(Environment environment){
+
+        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+        mapperScannerConfigurer.setSqlSessionFactoryBeanName("zuulSqlSessionFactory");
+        mapperScannerConfigurer.setBasePackage("com.yonyou.cloud.zuul.db.mapper");
+        return mapperScannerConfigurer;
+    }
 //    @Bean
 //    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 //        return new SqlSessionTemplate(sqlSessionFactory);
@@ -147,7 +159,7 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
     }
 
     @Bean("zuulTrans")//
-    public DataSourceTransactionManager transactionManager() {
+    public DataSourceTransactionManager transactionManager1() {
         return new DataSourceTransactionManager(zuulDruidDataSource());
     }
 

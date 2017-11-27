@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
+import tk.mybatis.spring.mapper.MapperScannerConfigurer;
+
 /**
  * mybatis 配置数据源类
  * 
@@ -31,7 +33,7 @@ import com.alibaba.druid.pool.DruidDataSource;
  * @since 1.7
  */
 @Configuration
-//@EnableTransactionManagement
+@EnableTransactionManagement
 public class MybatisConfiguration implements EnvironmentAware {
 
 
@@ -58,10 +60,12 @@ public class MybatisConfiguration implements EnvironmentAware {
     private String poolPreparedStatements;
     private String maxOpenPreparedStatements;
     //////////////////////////////////////////////////////////////////////////
-    private DataSource dataSource;
+    private DruidDataSource druidDataSource;
 
-    @Bean("groovyDataSource")
+//    @Bean("groovyDataSource")
     public DataSource druidDataSource() {
+    	if(this.druidDataSource!=null)
+    		return this.druidDataSource;
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(url);
         druidDataSource.setUsername(userName);
@@ -87,14 +91,14 @@ public class MybatisConfiguration implements EnvironmentAware {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        this.dataSource=druidDataSource;
+        this.druidDataSource=druidDataSource;
         return druidDataSource;
     }
 
     @Bean(name = "groovySqlSessionFactory")
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
+        bean.setDataSource(druidDataSource());
         if(StringUtils.isNotBlank(typeAliasesPackage)){
             bean.setTypeAliasesPackage(typeAliasesPackage);
         }
@@ -119,6 +123,14 @@ public class MybatisConfiguration implements EnvironmentAware {
         }
     }
 
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer(Environment environment){
+
+        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+        mapperScannerConfigurer.setSqlSessionFactoryBeanName("groovySqlSessionFactory");
+        mapperScannerConfigurer.setBasePackage("com.yonyou.microservice.filter");
+        return mapperScannerConfigurer;
+    }
 //    @Bean
 //    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 //        return new SqlSessionTemplate(sqlSessionFactory);
@@ -149,8 +161,8 @@ public class MybatisConfiguration implements EnvironmentAware {
     }
 
     @Bean("groovyTrans")//
-    public DataSourceTransactionManager transactionManager0() {
-        return new DataSourceTransactionManager(dataSource);
+    public DataSourceTransactionManager transactionManager2() {
+        return new DataSourceTransactionManager(druidDataSource());
     }
 
 }
