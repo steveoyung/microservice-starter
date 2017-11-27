@@ -30,12 +30,11 @@ import com.yonyou.cloud.zuul.db.mapper.RouteMapper;
 
 public class MysqlZuulRouteStore implements ZuulRouteStore {
 	private Logger logger=Logger.getLogger(MysqlZuulRouteStore.class);
-	@Autowired
-	@Qualifier("zuulDataSource")
-	public DataSource dataSource;
+//	@Autowired
+//	@Qualifier("zuulDataSource")
+//	public DataSource dataSource;
 	
 	@Autowired
-//	@Qualifier("zuulDataSource")
     private RouteMapper dao;
 
 	
