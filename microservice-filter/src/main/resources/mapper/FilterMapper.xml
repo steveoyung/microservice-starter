@@ -10,5 +10,6 @@
         <result column="canary_setting" jdbcType="VARCHAR" property="canarySetting"/>
         <result column="version" jdbcType="VARCHAR" property="version"/>
         <result column="script" jdbcType="VARCHAR" property="script"/>
+        <result column="update_date" jdbcType="DATE" property="updateDate"/>
     </resultMap>
 </mapper>

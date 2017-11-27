@@ -1,5 +1,8 @@
 package com.yonyou.microservice.filter.entity;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,6 +17,8 @@ public class Filter {
 	private String canarySetting;     
 	private String version;     
 	private String script;
+	@Column(name="update_date")
+	private Date updateDate;
 
 	public Integer getId() {
 		return id;
@@ -77,6 +82,14 @@ public class Filter {
 
 	public void setScript(String script) {
 		this.script = script;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

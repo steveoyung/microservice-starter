@@ -20,10 +20,17 @@
 3.  application.properties
 
 ```
-zuul.store.mysql.enabled=true
-
-spring.datasource.driverClassName=com.mysql.jdbc.Driver
-spring.datasource.url=jdbc:mysql://10.180.8.205:3306/ag_gate?useUnicode=true&amp;characterEncoding=utf8mb4
-spring.datasource.username=root
-spring.datasource.password=rcs
+zuul
+  store:
+    mysql:
+      enabled: true
+  db:
+    name: test
+    url: jdbc:mysql://10.180.8.205:3306/ag_admin?useUnicode=true&characterEncoding=UTF8
+    username: root
+    password: rcs
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    basepackage: com.yonyou.cloud.zuul.db.mapper
+    xmlLocation: classpath:mapper/**/*.xml
 ```
