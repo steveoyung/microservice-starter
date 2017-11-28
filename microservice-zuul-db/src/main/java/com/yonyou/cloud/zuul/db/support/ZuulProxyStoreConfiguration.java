@@ -31,9 +31,9 @@ import com.yonyou.cloud.zuul.db.route.StoreProxyRouteLocator;
 import com.yonyou.cloud.zuul.db.store.ZuulRouteStore;
 
 
-@ComponentScan("com.yonyou.cloud.zuul.db")
+//@ComponentScan("com.yonyou.cloud.zuul.db")
 @Configuration
-@AutoConfigureAfter({ZuulMybatisConfiguration.class})
+//@AutoConfigureAfter({ZuulMybatisConfiguration.class})
 public class ZuulProxyStoreConfiguration extends ZuulProxyAutoConfiguration {
 	private Logger logger=Logger.getLogger(ZuulProxyStoreConfiguration.class);
 
@@ -49,40 +49,12 @@ public class ZuulProxyStoreConfiguration extends ZuulProxyAutoConfiguration {
     @Autowired
     private ServerProperties server;
 
-//    @Autowired
-//    private Environment env;
-//    
-//    private String driver;
-//    private String url;
-//    private String username;
-//    private String password;
-    
+    public ZuulProxyStoreConfiguration(){
+    	logger.info("--ZuulProxyStoreConfiguration()");
+    }
     @Override
     public DiscoveryClientRouteLocator discoveryRouteLocator() {
     	logger.info("--ZuulProxyStoreConfiguration.routeLocator");
         return new StoreProxyRouteLocator(server.getServletPath(),discovery, zuulProperties, zuulRouteStore);
     }
-
-//    @Bean("transactionManager")//
-//    public DataSourceTransactionManager transactionManager() {
-//        return new DataSourceTransactionManager(dataSource());
-//    }
-
-//    @Bean("zuulDataSource")
-//    @Qualifier("zuulDataSource")
-//    public DataSource dataSource(){
-//            DriverManagerDataSource ds=new DriverManagerDataSource(url,username,password);
-//            ds.setDriverClassName(driver);
-//            return ds;
-//    }
-//
-//	@Override
-//	public void setEnvironment(Environment env) {
-//		// TODO Auto-generated method stub
-//
-//        driver=env.getProperty("spring.datasource.driverClassName");
-//        url=env.getProperty("spring.datasource.url");
-//        username=env.getProperty("spring.datasource.username");
-//        password=env.getProperty("spring.datasource.password");
-//	}
 }

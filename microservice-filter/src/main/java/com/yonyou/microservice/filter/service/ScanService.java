@@ -29,29 +29,35 @@ public class ScanService {
     @Value("${groovy.filter.path}")
     private String groovyPath;
 	
+    @Value("${spring.application.name}")
+    private String serviceName;
+    
 	public ScanService(){
 		logger.info("--ScanService 对象创建");
 	}
 	
 	@Scheduled(cron = "0 */1 * * * ?") 
 	public void scanDb() throws ParseException{
+		Filter e=new Filter();
+		e.setServiceName(serviceName);
+		List<Filter> filters=filter.select(e);
 		logger.info("--ScanService ,scanDb 执行");
-		List<Filter> filters=filter.selectAll();
+//		List<Filter> filters=filter.selectAll();//从db读取所有的filter
 		File file1 = new File(groovyPath+"pre") ;
 		File[] preFiles =file1.listFiles();
-		cleanFile(filters,preFiles);
+		cleanFile(filters,preFiles);//删除不在db中的本地pre文件
 		File file2 = new File(groovyPath+"post") ;
 		File[] postFiles =file2.listFiles();
-		cleanFile(filters,postFiles);
+		cleanFile(filters,postFiles);//删除不在db中的本地post文件
 		for(Filter f:filters){
-			logger.info("--,scanDb,script:"+f.getScript());
 			File oldfile = new File(groovyPath+f.getType()+"/"+f.getName()+".groovy"); 
-			updateFile(f,oldfile);
+			updateFile(f,oldfile);//根据db数据创建或更新filter文件
 		}
 	}
 	private void cleanFile(List<Filter> filters,File[] files){
 		for(File f:files){
 			if(!hasFile(filters,f.getName())){
+				logger.info("--cleanFile ,清除文件,"+f.getName()+".groovy");
 				f.delete();
 			}
 		}
@@ -66,30 +72,30 @@ public class ScanService {
 	}
 	private void updateFile(Filter f,File oldfile){
 		if(oldfile.exists()){
-			logger.info("--scanDb，文件已经存在,"+f.getName()+".groovy");
 			long l1= oldfile.lastModified();
-			Date d=new Date(l1);
-			DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			long l2=f.getUpdateDate().getTime();//df.parse(.toString())
 			if(l1<l2){
-				logger.info("--scanDb，需要更新script");
+				logger.info("--updateFile，需要更新script,先删除"+f.getName()+".groovy");
 				oldfile.delete();
 				newFile(oldfile,f);
+			}else{
+				logger.info("--updateFile，文件不需要更新,"+f.getName()+".groovy");
 			}
 		}else{
-			logger.info("--scanDb，新建文件,"+f.getName()+".groovy");
+			logger.info("--updateFile，新建文件,"+f.getName()+".groovy");
 			newFile(oldfile,f);
 		}
 	}
 	public void newFile(File oldfile,Filter f) {
 		try {
+			logger.info("--,newFile,script:"+f.getScript());
 			FileWriter resultFile = new FileWriter(oldfile);   
 			PrintWriter myFile = new PrintWriter(resultFile);   
 			myFile.println(f.getScript()); 
 			oldfile.setLastModified(f.getUpdateDate().getTime());
 			resultFile.close(); 
 		} catch (Exception e) {
-			logger.error("--scanDb error,"+e.getMessage());
+			logger.error("--newFile 创建文件失败,"+e.getMessage());
 		} 
 	}
 }

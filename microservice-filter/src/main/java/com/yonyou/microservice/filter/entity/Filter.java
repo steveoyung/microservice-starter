@@ -19,6 +19,8 @@ public class Filter {
 	private String script;
 	@Column(name="update_date")
 	private Date updateDate;
+	@Column(name="service_name")
+	private String serviceName;
 
 	public Integer getId() {
 		return id;
@@ -90,6 +92,14 @@ public class Filter {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
 	}
 
 }
