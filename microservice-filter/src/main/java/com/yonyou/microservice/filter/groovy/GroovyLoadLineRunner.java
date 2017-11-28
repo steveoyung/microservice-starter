@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.FilterFileManager;
 import com.netflix.zuul.FilterLoader;
+import com.netflix.zuul.filters.FilterRegistry;
 import com.netflix.zuul.groovy.GroovyCompiler;
 import com.netflix.zuul.monitoring.MonitoringHelper;
 

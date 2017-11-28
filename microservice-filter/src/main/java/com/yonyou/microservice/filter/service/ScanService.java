@@ -2,13 +2,13 @@ package com.yonyou.microservice.filter.service;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
+import java.lang.reflect.Field;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.filters.FilterRegistry;
 import com.yonyou.microservice.filter.entity.Filter;
 import com.yonyou.microservice.filter.mapper.FilterMapper;
 
@@ -59,9 +61,40 @@ public class ScanService {
 			if(!hasFile(filters,f.getName())){
 				logger.info("--cleanFile ,清除文件,"+f.getName()+".groovy");
 				f.delete();
+				String cl=f.getName().substring(0,f.getName().indexOf(".groovy"));
+				logger.info("--cleanFile ,卸载类,"+cl);
+				String key=null;
+				try {
+					key = getKey(cl,FilterRegistry.instance());
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				} 
+//				Collection<ZuulFilter> fls=FilterRegistry.instance().getAllFilters();
+				if(key!=null){
+					FilterRegistry.instance().remove(key);
+				}
 			}
 		}
 	}
+	private String getKey(String name,Object bean) throws IllegalArgumentException, IllegalAccessException{
+		Class userCla = (Class) bean.getClass();  
+	       Field[] fs = userCla.getDeclaredFields();  
+	       for(int i = 0 ; i < fs.length; i++){  
+	           Field f = fs[i];  
+	           if(f.getName().equals("filters")){
+		           f.setAccessible(true); //设置些属性是可以访问的  
+		           Object val = f.get(bean);//得到此属性的值   
+		           ConcurrentHashMap<String, ZuulFilter> m=(ConcurrentHashMap<String, ZuulFilter>)val;
+		           for(Map.Entry<String, ZuulFilter> entry: m.entrySet()) {  
+		        	   if(entry.getKey().contains(name)){
+		        		   return entry.getKey();
+		        	   }
+		          } 
+	           } 
+	       }  
+	    return "";
+	}
+	
 	private boolean hasFile(List<Filter> filters,String fn){
 		for(Filter fr:filters){
 			if(fn.equals(fr.getName()+".groovy")){
