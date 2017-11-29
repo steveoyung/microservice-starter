@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.text.ParseException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -61,18 +61,17 @@ public class ScanService {
 			if(!hasFile(filters,f.getName())){
 				logger.info("--cleanFile ,清除文件,"+f.getName()+".groovy");
 				f.delete();
-				String cl=f.getName().substring(0,f.getName().indexOf(".groovy"));
-				logger.info("--cleanFile ,卸载类,"+cl);
-				String key=null;
-				try {
-					key = getKey(cl,FilterRegistry.instance());
-				} catch (Exception e) {
-					logger.error(e.getMessage());
-				} 
-//				Collection<ZuulFilter> fls=FilterRegistry.instance().getAllFilters();
-				if(key!=null){
-					FilterRegistry.instance().remove(key);
-				}
+//				String cl=f.getName().substring(0,f.getName().indexOf(".groovy"));
+//				logger.info("--cleanFile ,卸载类,"+cl);
+//				String key=null;
+//				try {
+//					key = getKey(cl,FilterRegistry.instance());
+//				} catch (Exception e) {
+//					logger.error(e.getMessage());
+//				} 
+//				if(key!=null){
+//					FilterRegistry.instance().remove(key);
+//				}
 			}
 		}
 	}
