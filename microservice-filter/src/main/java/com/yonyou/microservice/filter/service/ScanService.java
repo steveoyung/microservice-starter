@@ -34,10 +34,10 @@ public class ScanService {
     @Value("${spring.application.name}")
     private String serviceName;
     
+    
 	public ScanService(){
 		logger.info("--ScanService 对象创建");
 	}
-	
 	@Scheduled(cron = "0 */1 * * * ?") 
 	public void scanDb() throws ParseException{
 		Filter e=new Filter();
