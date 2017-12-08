@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.yonyou.cloud</groupId>
 	<artifactId>microservice-zuul-db-starter</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<!-- <parent> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-parent</artifactId> 
 		<version>Camden.SR5</version> </parent> -->
@@ -56,12 +56,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zuul</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-netflix-core</artifactId>
 		</dependency><!-- -->
-		
+
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-jpa</artifactId> 
 			<version>1.4.7.RELEASE</version> </dependency> -->
 
@@ -137,9 +137,9 @@
 			<version>3.4</version>
 		</dependency>
 	</dependencies>
-	
-	
-	
+
+
+
 	<distributionManagement>
 		<repository>
 			<id>nexus-releases</id>
@@ -152,11 +152,16 @@
 			<url>http://210.13.111.26:10160/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
-	
-	
 
-	<!-- <build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> </plugins> <defaultGoal>compile</defaultGoal> 
-		</build> -->
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
