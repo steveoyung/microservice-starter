@@ -14,7 +14,7 @@ import tk.mybatis.mapper.common.Mapper;
 @Transactional("zuulTrans")
 public interface RouteMapper extends Mapper<RouteEntity>{
 
-    @Select(" SELECT id,path,service_id,url,strip_prefix,retryable from gate_routes order by path desc" )
+    @Select(" SELECT id,path,service_id as serviceId,url,strip_prefix as stripPrefix,retryable from gate_routes order by path desc" )
     @ResultType(RouteEntity.class)
     public List<RouteEntity> findAll(); 
      
