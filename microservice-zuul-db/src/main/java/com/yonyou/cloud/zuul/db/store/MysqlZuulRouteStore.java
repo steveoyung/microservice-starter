@@ -45,7 +45,7 @@ public class MysqlZuulRouteStore implements ZuulRouteStore {
     public List<ZuulProperties.ZuulRoute> findAll() {
     	logger.info("--List<ZuulProperties.ZuulRoute> findAll()，从数据库加载路由");
     	List<ZuulProperties.ZuulRoute> zs=new ArrayList();
-    	List<RouteEntity> list=dao.selectAll();
+    	List<RouteEntity> list=dao.findAll();
     	for(RouteEntity e:list){
     		ZuulProperties.ZuulRoute zl=new ZuulProperties.ZuulRoute();
     		zl.setId(e.getId());
