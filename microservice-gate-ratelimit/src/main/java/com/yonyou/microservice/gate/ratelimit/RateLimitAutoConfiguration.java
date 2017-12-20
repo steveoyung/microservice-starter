@@ -16,16 +16,8 @@
 
 package com.yonyou.microservice.gate.ratelimit;
 
-import com.yonyou.microservice.gate.ratelimit.config.IUserPrincipal;
-import com.yonyou.microservice.gate.ratelimit.config.RateLimiter;
-import com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitProperties;
-import com.yonyou.microservice.gate.ratelimit.config.repository.InMemoryRateLimiter;
-import com.yonyou.microservice.gate.ratelimit.config.repository.RedisRateLimiter;
-import com.yonyou.microservice.gate.ratelimit.config.repository.springdata.IRateLimiterRepository;
-import com.yonyou.microservice.gate.ratelimit.config.repository.springdata.SpringDataRateLimiter;
-import com.yonyou.microservice.gate.ratelimit.filters.RateLimitFilter;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import static com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitProperties.PREFIX;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -34,11 +26,14 @@ import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
-import static com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitProperties.PREFIX;
+import com.yonyou.microservice.gate.ratelimit.config.IUserPrincipal;
+import com.yonyou.microservice.gate.ratelimit.config.RateLimiter;
+import com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitProperties;
+import com.yonyou.microservice.gate.ratelimit.config.repository.InMemoryRateLimiter;
+import com.yonyou.microservice.gate.ratelimit.config.repository.springdata.IRateLimiterRepository;
+import com.yonyou.microservice.gate.ratelimit.config.repository.springdata.SpringDataRateLimiter;
+import com.yonyou.microservice.gate.ratelimit.filters.RateLimitFilter;
 
 /**
  * @author Marcos Barbero
@@ -59,21 +54,21 @@ public class RateLimitAutoConfiguration {
 		return new RateLimitFilter(rateLimiter, rateLimitProperties, routeLocator,userPrincipal);
     }
 
-    @ConditionalOnClass(RedisTemplate.class)
-    @ConditionalOnMissingBean(RateLimiter.class)
-    @ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "REDIS")
-    public static class RedisConfiguration {
-
-        @Bean("rateLimiterRedisTemplate")
-        public StringRedisTemplate redisTemplate(final RedisConnectionFactory connectionFactory) {
-            return new StringRedisTemplate(connectionFactory);
-        }
-
-        @Bean
-        public RateLimiter redisRateLimiter(@Qualifier("rateLimiterRedisTemplate") final RedisTemplate redisTemplate) {
-            return new RedisRateLimiter(redisTemplate);
-        }
-    }
+//    @ConditionalOnClass(RedisTemplate.class)
+//    @ConditionalOnMissingBean(RateLimiter.class)
+//    @ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "REDIS")
+//    public static class RedisConfiguration {
+//
+//        @Bean("rateLimiterRedisTemplate")
+//        public StringRedisTemplate redisTemplate(final RedisConnectionFactory connectionFactory) {
+//            return new StringRedisTemplate(connectionFactory);
+//        }
+//
+//        @Bean
+//        public RateLimiter redisRateLimiter(@Qualifier("rateLimiterRedisTemplate") final RedisTemplate redisTemplate) {
+//            return new RedisRateLimiter(redisTemplate);
+//        }
+//    }
 
     @EntityScan
     @EnableJpaRepositories
