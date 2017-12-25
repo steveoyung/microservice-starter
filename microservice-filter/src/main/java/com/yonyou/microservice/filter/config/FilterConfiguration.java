@@ -22,6 +22,10 @@ import org.springframework.context.annotation.Configuration;
 
 import com.yonyou.microservice.filter.groovy.GroovyLoadLineRunner;
 
+/**
+ * 
+ * @author joy
+ */
 @Configuration
 @ComponentScan("com.yonyou.microservice.filter")
 public class FilterConfiguration  {

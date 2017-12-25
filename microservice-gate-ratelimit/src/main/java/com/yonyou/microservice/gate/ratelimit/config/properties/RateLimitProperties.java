@@ -53,7 +53,14 @@ public class RateLimitProperties {
     private Repository repository = Repository.IN_MEMORY;
 
     public enum Repository {
-        REDIS, CONSUL, JPA, IN_MEMORY
+    	/* 存储于redis  */
+        REDIS, 
+    	/* 存储于consul  */
+        CONSUL, 
+    	/* 存储于jpa  */
+        JPA, 
+    	/* 存储于memory  */
+        IN_MEMORY
     }
 
     public Optional<Policy> getPolicy(String key) {
@@ -71,8 +78,16 @@ public class RateLimitProperties {
         @NotNull
         private List<Type> type = Lists.newArrayList();
 
+    	/**
+         * 定义限流的方法
+         */
         public enum Type {
-            ORIGIN, USER, URL
+        	//根据请求来源ip限流
+            ORIGIN, 
+            //根据请求用户限流
+            USER, 
+            //根据请求url限流
+            URL
         }
     }
 }

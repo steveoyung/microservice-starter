@@ -26,7 +26,10 @@ import com.yonyou.cloud.zuul.db.mapper.RouteMapper;
 import com.yonyou.cloud.zuul.db.route.StoreProxyRouteLocator;
 import com.yonyou.cloud.zuul.db.store.MysqlZuulRouteStore;
 import com.yonyou.cloud.zuul.db.store.ZuulRouteStore;
-
+/**
+ * 
+ * @author joy
+ */
 @Configuration
 @ConditionalOnProperty(value = "zuul.store.mysql.enabled", havingValue = "true", matchIfMissing = false)
 public class MysqlZuulStoreAutoConfiguration {

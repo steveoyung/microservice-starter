@@ -26,7 +26,10 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientR
 
 import com.yonyou.cloud.zuul.db.store.ZuulRouteStore;
 import com.yonyou.cloud.zuul.db.support.ZuulProxyStoreConfiguration;
-
+/**
+ * 
+ * @author joy
+ */
 public class StoreProxyRouteLocator extends DiscoveryClientRouteLocator {
 	private Logger logger=Logger.getLogger(StoreProxyRouteLocator.class);
 

@@ -45,7 +45,6 @@ public class MybatisConfiguration implements EnvironmentAware {
     private String password;
     private String xmlLocation;
     private String typeAliasesPackage;
-    /////////////////////druid参数///////////////////////////////////////////////////
     private String filters;
     private String maxActive;
     private String initialSize;
@@ -59,13 +58,18 @@ public class MybatisConfiguration implements EnvironmentAware {
     private String testOnReturn;
     private String poolPreparedStatements;
     private String maxOpenPreparedStatements;
-    //////////////////////////////////////////////////////////////////////////
     private DruidDataSource druidDataSource;
 
-//    @Bean("groovyDataSource")
+    //  @Bean("groovyDataSource")
+    /**
+     * 
+     * 数据源配置
+     * 
+     */
     public DataSource druidDataSource() {
-    	if(this.druidDataSource!=null)
+    	if(this.druidDataSource!=null){
     		return this.druidDataSource;
+    	}
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(url);
         druidDataSource.setUsername(userName);
@@ -131,10 +135,6 @@ public class MybatisConfiguration implements EnvironmentAware {
         mapperScannerConfigurer.setBasePackage("com.yonyou.microservice.filter");
         return mapperScannerConfigurer;
     }
-//    @Bean
-//    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-//        return new SqlSessionTemplate(sqlSessionFactory);
-//    }
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -159,8 +159,12 @@ public class MybatisConfiguration implements EnvironmentAware {
         this.typeAliasesPackage = propertyResolver.getProperty("groovy.db.typeAliasesPackage");
         this.xmlLocation = propertyResolver.getProperty("groovy.db.xmlLocation");
     }
-
-    @Bean("groovyTrans")//
+    /**
+     * 
+     * 事务配置
+     * 
+     */
+    @Bean("groovyTrans")
     public DataSourceTransactionManager transactionManager2() {
         return new DataSourceTransactionManager(druidDataSource());
     }

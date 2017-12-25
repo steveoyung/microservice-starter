@@ -42,7 +42,6 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
     private String password;
     private String xmlLocation;
     private String typeAliasesPackage;
-    /////////////////////druid参数///////////////////////////////////////////////////
     private String filters;
     private String maxActive;
     private String initialSize;
@@ -56,13 +55,17 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
     private String testOnReturn;
     private String poolPreparedStatements;
     private String maxOpenPreparedStatements;
-    //////////////////////////////////////////////////////////////////////////
     private DruidDataSource druidDataSource;
 
 //    @Bean("zuulDataSource")
+    /**
+     * 数据源配置
+     * @return
+     */
     public DataSource zuulDruidDataSource() {
-    	if(druidDataSource!=null)
+    	if(druidDataSource!=null){
     		return druidDataSource;
+    	}
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(url);
         druidDataSource.setUsername(userName);
@@ -129,10 +132,6 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
         mapperScannerConfigurer.setBasePackage("com.yonyou.cloud.zuul.db.mapper");
         return mapperScannerConfigurer;
     }
-//    @Bean
-//    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-//        return new SqlSessionTemplate(sqlSessionFactory);
-//    }
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -157,8 +156,11 @@ public class ZuulMybatisConfiguration implements EnvironmentAware {
         this.typeAliasesPackage = propertyResolver.getProperty("zuul.db.typeAliasesPackage");
         this.xmlLocation = propertyResolver.getProperty("zuul.db.xmlLocation");
     }
-
-    @Bean("zuulTrans")//
+    /**
+     * 事务配置
+     * @return
+     */
+    @Bean("zuulTrans")
     public DataSourceTransactionManager transactionManager1() {
         return new DataSourceTransactionManager(zuulDruidDataSource());
     }

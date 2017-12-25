@@ -23,10 +23,12 @@ import com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitPropert
  */
 public interface RateLimiter {
 
-    /**
-     * @param policy - Template for which rates should be created in case there's no rate limit associated with the key
-     * @param key    - Unique key that identifies a request
-     * @return a view of a user's rate request limit
+	/**
+	 * 取得请求的流量使用情况
+     * 
+     * @param policy 用于判断是否启用限流
+     * @param key 每个限流请求的唯一标识
+     * @return 流量使用情况
      */
     Rate consume(Policy policy, String key);
 }

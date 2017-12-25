@@ -50,7 +50,6 @@ public class RateLimitAutoConfiguration {
                                              final RateLimitProperties rateLimitProperties,
                                              final RouteLocator routeLocator, final IUserPrincipal userPrincipal) {
 
-		System.out.println("---------------x");
 		return new RateLimitFilter(rateLimiter, rateLimitProperties, routeLocator,userPrincipal);
     }
 

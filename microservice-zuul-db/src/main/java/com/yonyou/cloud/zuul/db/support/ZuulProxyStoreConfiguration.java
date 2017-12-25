@@ -30,10 +30,11 @@ import com.yonyou.cloud.zuul.db.config.ZuulMybatisConfiguration;
 import com.yonyou.cloud.zuul.db.route.StoreProxyRouteLocator;
 import com.yonyou.cloud.zuul.db.store.ZuulRouteStore;
 
-
-//@ComponentScan("com.yonyou.cloud.zuul.db")
+/**
+ * 
+ * @author joy
+ */
 @Configuration
-//@AutoConfigureAfter({ZuulMybatisConfiguration.class})
 public class ZuulProxyStoreConfiguration extends ZuulProxyAutoConfiguration {
 	private Logger logger=Logger.getLogger(ZuulProxyStoreConfiguration.class);
 

@@ -5,7 +5,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+/**
+ * 
+ * @author joy
+ */
 @Table(name = "gate_filter")
 public class Filter {
     @Id

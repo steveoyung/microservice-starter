@@ -25,15 +25,14 @@ import java.util.StringJoiner;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
-import org.springframework.cloud.netflix.zuul.util.ZuulRuntimeException;
 import org.springframework.web.util.UrlPathHelper;
 
 import com.google.common.net.HttpHeaders;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import com.yonyou.microservice.gate.ratelimit.config.IUserPrincipal;
 import com.yonyou.microservice.gate.ratelimit.config.Rate;
 import com.yonyou.microservice.gate.ratelimit.config.RateLimiter;
@@ -49,6 +48,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class RateLimitFilter extends ZuulFilter {
+	private static Logger logger=Logger.getLogger(RateLimitFilter.class);
 
     public static final String LIMIT_HEADER = "X-RateLimit-Limit";
     public static final String REMAINING_HEADER = "X-RateLimit-Remaining";
@@ -79,6 +79,7 @@ public class RateLimitFilter extends ZuulFilter {
 
     @Override
     public Object run(){
+    	logger.info("--进入限流zuul:RateLimitFilter");
         final RequestContext ctx = RequestContext.getCurrentContext();
         final HttpServletResponse response = ctx.getResponse();
         final HttpServletRequest request = ctx.getRequest();

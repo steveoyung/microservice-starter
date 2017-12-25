@@ -3,7 +3,10 @@ package com.yonyou.cloud.zuul.db.entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+/**
+ * 
+ * @author joy
+ */
 @Table(name="gate_routes")
 public class RouteEntity {
 

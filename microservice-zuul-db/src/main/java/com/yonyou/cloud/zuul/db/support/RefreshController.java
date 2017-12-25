@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yonyou.cloud.zuul.db.route.StoreProxyRouteLocator;
-
+/**
+ * 
+ * @author joy
+ */
 @RestController
 public class RefreshController {
 	private Logger logger=Logger.getLogger(RefreshController.class);

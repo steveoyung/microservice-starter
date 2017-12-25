@@ -16,8 +16,17 @@ import com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitPropert
  * @since 2017-08-28
  */
 public abstract class AbstractRateLimiter implements RateLimiter {
-
+	/**
+	 * 根据key获取流量使用情况
+	 * 
+     * @param key 每个限流请求的唯一标识
+     * @return 流量使用情况
+     */
     protected abstract Rate getRate(String key);
+	/**
+	 * 保存流量信息到内存、redis、jpa等
+     * @param rate 流量使用情况
+     */
     protected abstract void saveRate(Rate rate);
 
     @Override
