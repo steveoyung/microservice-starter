@@ -14,7 +14,7 @@ import tk.mybatis.mapper.common.Mapper;
  * 
  * @author joy
  */
-@Transactional(value="zuulTrans",rollbackFor=(Exception.class))
+@Transactional(value="zuulTrans",rollbackFor={Exception.class})
 public interface RouteMapper extends Mapper<RouteEntity>{
     /**
      * 读取所有的路由信息

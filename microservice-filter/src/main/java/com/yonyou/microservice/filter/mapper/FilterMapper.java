@@ -9,7 +9,8 @@ import tk.mybatis.mapper.common.Mapper;
  * 
  * @author joy
  */
-@Transactional(value="groovyTrans",rollbackFor=(Exception.class))
+
+@Transactional(value="groovyTrans",rollbackFor={Exception.class})
 public interface FilterMapper extends Mapper<Filter> {
 
 }
