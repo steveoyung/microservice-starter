@@ -1,5 +1,4 @@
-package com.yonyou.cloud.zuul.db.config;
-//package com.yonyou.microservice.filter.config;
+//package com.yonyou.cloud.zuul.db.config;
 //
 //import com.alibaba.druid.support.http.StatViewServlet;
 //
