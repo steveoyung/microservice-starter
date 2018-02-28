@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,8 @@ public class RefreshController {
 	private Logger logger=Logger.getLogger(RefreshController.class);
 //	@Autowired
 //	RouteMapper routeMapper;
+	@Autowired
+    private ZuulProperties properties;
 
 	@Autowired
 	DiscoveryClientRouteLocator locator;
@@ -32,6 +35,12 @@ public class RefreshController {
     	Map<String,String> map=new HashMap();
     	map.put("message", "ok");
 		return map;
+	}
+	@RequestMapping("/routes/list")
+	@ResponseBody
+	public Map list(){
+
+		return properties.getRoutes();
 	}
 
 }
