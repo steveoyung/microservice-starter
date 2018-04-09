@@ -12,5 +12,5 @@ import java.lang.annotation.*;
 @Import(RateLimitAutoConfiguration.class)
 @Documented
 @Inherited
-public @interface EnableAceGateRateLimit {
+public @interface EnableOpsGateRateLimit {
 }
