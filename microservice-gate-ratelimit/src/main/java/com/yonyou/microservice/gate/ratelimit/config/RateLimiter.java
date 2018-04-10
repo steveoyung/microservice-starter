@@ -3,7 +3,9 @@ package com.yonyou.microservice.gate.ratelimit.config;
 import com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitProperties.Policy;
 
 /**
- * @author Marcos Barbero
+ * 
+ * @author daniell
+ *
  */
 public interface RateLimiter {
 

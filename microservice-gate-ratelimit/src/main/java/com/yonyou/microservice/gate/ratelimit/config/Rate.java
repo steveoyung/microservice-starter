@@ -14,8 +14,8 @@ import java.util.Date;
  * limit - How many requests can be executed by the user. Maps to X-RateLimit-Limit header
  * remaining - How many requests are still left on the current window. Maps to X-RateLimit-Remaining header
  * reset - Epoch when the rate is replenished by limit. Maps to X-RateLimit-Reset header
+ * @author daniell
  *
- * @author Marcos Barbero
  */
 @Data
 @Entity

@@ -8,13 +8,12 @@ import com.yonyou.microservice.gate.ratelimit.config.Rate;
 import com.yonyou.microservice.gate.ratelimit.config.RateLimiter;
 import com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitProperties.Policy;
 
-/**
+/** 
  * Abstract implementation for {@link RateLimiter}.
+ * @author daniell
  *
- * @author Liel Chayoun
- * @author Marcos Barbero
- * @since 2017-08-28
  */
+  
 public abstract class AbstractRateLimiter implements RateLimiter {
 	/**
 	 * 根据key获取流量使用情况

@@ -9,7 +9,7 @@
 //import static java.util.concurrent.TimeUnit.SECONDS;
 //
 ///**
-// * @author Marcos Barbero
+// * 
 // */
 //@RequiredArgsConstructor
 //public class RedisRateLimiter implements RateLimiter {

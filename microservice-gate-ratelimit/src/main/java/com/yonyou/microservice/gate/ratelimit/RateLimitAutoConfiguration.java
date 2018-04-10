@@ -21,7 +21,9 @@ import com.yonyou.microservice.gate.ratelimit.config.repository.springdata.Sprin
 import com.yonyou.microservice.gate.ratelimit.filters.RateLimitFilter;
 
 /**
- * @author Marcos Barbero
+ * 
+ * @author daniell
+ *
  */
 @Configuration
 @EnableConfigurationProperties(RateLimitProperties.class)

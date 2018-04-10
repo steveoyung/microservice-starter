@@ -27,8 +27,9 @@ import com.yonyou.microservice.gate.ratelimit.config.properties.RateLimitPropert
 import lombok.RequiredArgsConstructor;
 
 /**
- * @author Marcos Barbero
- * @author Michal Šváb
+ * 
+ * @author daniell
+ *
  */
 @RequiredArgsConstructor
 public class RateLimitFilter extends ZuulFilter {

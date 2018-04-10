@@ -6,12 +6,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.yonyou.microservice.gate.ratelimit.config.Rate;
 
-/**
+/** 
  * In memory rate limiter configuration for dev environment.
+ * @author daniell
  *
- * @author Marcos Barbero
- * @since 2017-06-23
  */
+ 
 public class InMemoryRateLimiter extends AbstractRateLimiter {
 
     private Map<String, Rate> repository = new ConcurrentHashMap<>();

@@ -16,7 +16,9 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Marcos Barbero
+ * 
+ * @author daniell
+ *
  */
 @Data
 @Validated

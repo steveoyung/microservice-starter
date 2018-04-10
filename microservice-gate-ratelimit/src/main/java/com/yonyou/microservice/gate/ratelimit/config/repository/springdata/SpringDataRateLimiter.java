@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * In memory rate limiter configuration for dev environment.
+ * @author daniell
  *
- * @author Marcos Barbero
- * @since 2017-06-23
  */
+ 
 @RequiredArgsConstructor
 public class SpringDataRateLimiter extends AbstractRateLimiter {
 
