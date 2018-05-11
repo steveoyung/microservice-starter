@@ -115,6 +115,7 @@ public class RateLimitFilter extends ZuulFilter {
                 joiner.add(userPrincipal.getName(request)!= null ? userPrincipal.getName(request) : ANONYMOUS_USER);
             }
         }
+        this.logger.info("--limitkey="+joiner.toString());
         return joiner.toString();
     }
 
