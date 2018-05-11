@@ -1,18 +1,3 @@
-/*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 package com.yonyou.microservice.gate.ratelimit;
 
@@ -36,7 +21,9 @@ import com.yonyou.microservice.gate.ratelimit.config.repository.springdata.Sprin
 import com.yonyou.microservice.gate.ratelimit.filters.RateLimitFilter;
 
 /**
- * @author Marcos Barbero
+ * 
+ * @author daniell
+ *
  */
 @Configuration
 @EnableConfigurationProperties(RateLimitProperties.class)
@@ -53,21 +40,6 @@ public class RateLimitAutoConfiguration {
 		return new RateLimitFilter(rateLimiter, rateLimitProperties, routeLocator,userPrincipal);
     }
 
-//    @ConditionalOnClass(RedisTemplate.class)
-//    @ConditionalOnMissingBean(RateLimiter.class)
-//    @ConditionalOnProperty(prefix = PREFIX, name = "repository", havingValue = "REDIS")
-//    public static class RedisConfiguration {
-//
-//        @Bean("rateLimiterRedisTemplate")
-//        public StringRedisTemplate redisTemplate(final RedisConnectionFactory connectionFactory) {
-//            return new StringRedisTemplate(connectionFactory);
-//        }
-//
-//        @Bean
-//        public RateLimiter redisRateLimiter(@Qualifier("rateLimiterRedisTemplate") final RedisTemplate redisTemplate) {
-//            return new RedisRateLimiter(redisTemplate);
-//        }
-//    }
 
     @EntityScan
     @EnableJpaRepositories

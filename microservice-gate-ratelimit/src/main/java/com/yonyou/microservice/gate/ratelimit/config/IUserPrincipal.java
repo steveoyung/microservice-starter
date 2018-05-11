@@ -3,9 +3,9 @@ package com.yonyou.microservice.gate.ratelimit.config;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author joy
- * Created on 2017/9/23.
  * 
+ * @author daniell
+ *
  */
 public interface IUserPrincipal {
 	/**
