@@ -75,6 +75,7 @@ public class RateLimitFilter extends ZuulFilter {
             response.setHeader(REMAINING_HEADER, String.valueOf(Math.max(rate.getRemaining(), 0)));
             response.setHeader(RESET_HEADER, rate.getReset().toString());
             if (rate.getRemaining() < 0) {
+                this.logger.info("--was limited, key="+rate.getKey());
                 ctx.setResponseStatusCode(TOO_MANY_REQUESTS.value());
                 ctx.put("rateLimitExceeded", "true");
 //                throw new ZuulRuntimeException(new ZuulException(TOO_MANY_REQUESTS.toString(),
